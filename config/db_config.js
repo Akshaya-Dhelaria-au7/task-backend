@@ -6,6 +6,7 @@ const sequelize = new Sequelize({
     password : "password",
     database : "task_management",
     dialect: 'mysql',
+    logging: false,
     sync: true,
     pool: {
         max     : 1,
