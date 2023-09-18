@@ -2,6 +2,7 @@ import { Op } from 'sequelize';
 import db from '../model/index.js'
 
 const Tasks = db.tasks;
+const Comments = db.comments;
 
 export const create = async (data) => {
     const { name, description, status, dueDate, priority } = data || {}
@@ -60,11 +61,12 @@ export const updateTask = async ({ data }) => {
     }
 };
 
-export const deleteTask = async ({ id }) => {
+export const deleteTask = async (id) => {
 
     try {
+        await Comments.destroy({ where: { taskId: id } })
         const deletedTaskFromDB = await Tasks.destroy({
-            where: { id: +id }
+            where: { id }
         })
 
         if (deletedTaskFromDB === 1) {
@@ -87,9 +89,20 @@ export const deleteTask = async ({ id }) => {
 
 export const filterTask = async (data) => {
     try {
+        const { dueDate, ...rest } = data || {}
+        let filter = { ...rest }
+        if (dueDate) {
+            filter = {
+                ...filter,
+                dueDate: {
+                    [Op.eq]: dueDate.toString().split('T')[0]
+                },
+            }
+        }
+
         const res = await Tasks.findAll({
             where: {
-                ...data
+                ...filter
             }
         });
 

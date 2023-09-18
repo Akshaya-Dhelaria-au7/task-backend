@@ -16,7 +16,8 @@ export const updateTasks = async (req, res) => {
 }
 
 export const deleteTasks = async (req, res) => {
-  const deletedTask = await deleteTask(req.params);
+  const { id } = req.params || {}
+  const deletedTask = await deleteTask(+id);
   res.send(deletedTask)
 }
 

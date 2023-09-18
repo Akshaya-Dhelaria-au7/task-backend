@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/create', auth, createTask);
 router.get('/getTaskList', auth, findAllTask);
 router.put('/editTaskList', auth, updateTasks);
-router.delete('/deleteTaskList/:id/:key', auth, deleteTasks);
+router.delete('/deleteTaskList/:id', auth, deleteTasks);
 
 //Filterig of taks
 router.post('/getFilteredTask', auth, filterTasks);

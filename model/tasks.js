@@ -9,7 +9,7 @@ const tasks = db.define(
         description: { type: sequelize.STRING },
         priority: { type: sequelize.STRING },
         status: { type: sequelize.STRING },
-        dueDate: { type: sequelize.DATE },
+        dueDate: { type: sequelize.DATEONLY },
         createdAt: sequelize.DATE,
         updatedAt: sequelize.DATE,
     },
